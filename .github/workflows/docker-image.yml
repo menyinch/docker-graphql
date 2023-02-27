@@ -23,11 +23,18 @@ jobs:
        env: 
         DOCKER_USER: ${{ secrets.DEVTALLES_DOCKER_COURSE_USER }}
         DOCKER_PASSWORD: ${{ secrets.DEVTALLES_DOCKER_COURSE_PASSWORD }}
-       run:  |
-        echo "Logging in"
+       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "Log in finished"
      
+     
+     - name: Build Docker Image
+       run: |
+        docker build -t menyin/docker-graphql:1.0.1 .
+        
+        
+     - name:  Push Docker Image
+       run: |
+        docker push menyin/docker-graphql:1.0.1 .
      
 #     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
